@@ -1,11 +1,16 @@
 """현재 시스템 상태 조회 - python status.py"""
 import sys
 import os
+
+# 현재 스크립트의 상위 디렉토리(money)를 sys.path에 추가하여 모듈 임포트 가능하게 함
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
 
 from db import get_connection
-
+import config # config 모듈 전체를 임포트
+from engines.binance_executor import BinanceExecutor # BinanceExecutor 임포트
 
 def show_status():
     conn = get_connection()
@@ -13,6 +18,9 @@ def show_status():
     print("=" * 60)
     print("  Auto Trading System - Status")
     print("=" * 60)
+
+    # 라이브 트레이딩 활성화 여부 출력
+    print(f"[설정] 라이브 트레이딩 활성화: {config.LIVE_TRADING_ENABLED} (테스트넷: {config.LIVE_USE_TESTNET})")
 
     # 전략 상태
     state = conn.execute(
@@ -78,6 +86,45 @@ def show_status():
         for s in signals:
             score_str = f" score={s[2]:.2f}" if s[2] is not None else ""
             print(f"  {s[3]} | {s[0]} | {s[1]}{score_str}")
+
+    # 현재가 (from live_trader)
+    def _get_current_price(conn, symbol: str) -> float | None:
+        row = conn.execute(
+            "SELECT close FROM klines WHERE symbol = ? AND interval = '5m' "
+            "ORDER BY open_time DESC LIMIT 1",
+            (symbol,),
+        ).fetchone()
+        if not row:
+            row = conn.execute(
+                "SELECT close FROM klines WHERE symbol = ? AND interval = '1d' "
+                "ORDER BY open_time DESC LIMIT 1",
+                (symbol,),
+            ).fetchone()
+        return row[0] if row else None
+
+    # 라이브 트레이딩 활성 여부 (config에서)
+    from config import LIVE_TRADING_ENABLED, LIVE_USE_TESTNET, LIVE_SYMBOLS
+
+    # 라이브 포지션
+    if LIVE_TRADING_ENABLED:
+        from engines.binance_executor import BinanceExecutor
+        try:
+            ex = BinanceExecutor(use_testnet=LIVE_USE_TESTNET)
+            open_positions = ex.get_positions()
+            print(f"\n[현재 오픈 포지션] ({len(open_positions)}건)")
+            if open_positions:
+                for p in open_positions:
+                    # entryPrice는 문자열일 수 있으니 float 변환
+                    entry_price = float(p.get('entryPrice', 0))
+                    position_amt = float(p.get('positionAmt', 0))
+                    unrealized_pnl = float(p.get('unRealizedProfit', 0))
+                    print(f"  종목: {p['symbol']}, 수량: {position_amt:.4f}, "
+                          f"평균 진입가: ${entry_price:,.2f}, "
+                          f"미실현 PnL: ${unrealized_pnl:,.2f}")
+            else:
+                print("  오픈 포지션이 없습니다.")
+        except Exception as e:
+            print(f"[오류] 라이브 포지션 조회 실패: {e}")
 
     # DB 통계
     print(f"\n[DB 통계]")

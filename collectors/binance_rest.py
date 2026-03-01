@@ -24,15 +24,38 @@ def _headers() -> dict:
     return {"X-MBX-APIKEY": BINANCE_API_KEY}
 
 
+_MAX_RETRIES = 3
+
+
 def _get(endpoint: str, params: dict = None, signed: bool = False) -> dict | list:
-    """바이낸스 REST API 호출"""
+    """바이낸스 REST API 호출 (최대 3회 재시도, 429 시 60초 대기)"""
     url = f"{BINANCE_FUTURES_BASE}{endpoint}"
-    params = params or {}
-    if signed:
-        params = _signed_params(params)
-    resp = requests.get(url, params=params, headers=_headers(), timeout=10)
-    resp.raise_for_status()
-    return resp.json()
+    for attempt in range(1, _MAX_RETRIES + 1):
+        try:
+            p = dict(params or {})
+            if signed:
+                p = _signed_params(p)
+            resp = requests.get(url, params=p, headers=_headers(), timeout=10)
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else 0
+            if status == 429 and attempt < _MAX_RETRIES:
+                print(f"[API] 레이트 리밋 — 60초 대기 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(60)
+            elif attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[API] HTTP {status} — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                raise
+        except Exception:
+            if attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[API] 요청 실패 — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                raise
 
 
 # === OI 수집 ===
@@ -141,12 +164,12 @@ def collect_orderbook_walls():
 
 # === Klines 수집 (ATR 계산용 - 일봉) ===
 def collect_klines():
-    """일봉 14일치 수집 (ATR 계산용)"""
+    """일봉 90일치 수집 (ATR + MTF 스윙 분석용)"""
     conn = get_connection()
     for symbol in SYMBOLS:
         try:
             data = _get("/fapi/v1/klines", {
-                "symbol": symbol, "interval": "1d", "limit": 15,
+                "symbol": symbol, "interval": "1d", "limit": 90,
             })
             for k in data:
                 conn.execute(
@@ -177,13 +200,14 @@ def collect_klines():
 
 # === 5분봉 수집 (실시간 가격 + 전략 판단용) ===
 def collect_klines_5m():
-    """5분봉 최근 100개 수집 (약 8시간치, 전략 엔진 실시간 판단용)"""
+    """5분봉 최근 300개 수집 (약 25시간치, 방향 판단 228개 + 여유분)"""
     conn = get_connection()
     for symbol in SYMBOLS:
         try:
             data = _get("/fapi/v1/klines", {
-                "symbol": symbol, "interval": "5m", "limit": 100,
+                "symbol": symbol, "interval": "5m", "limit": 300,
             })
+            start_write_time = time.time()
             for k in data:
                 conn.execute(
                     """INSERT OR REPLACE INTO klines
@@ -192,12 +216,91 @@ def collect_klines_5m():
                     (symbol, "5m", int(k[0]), float(k[1]), float(k[2]),
                      float(k[3]), float(k[4]), float(k[5])),
                 )
+            conn.commit()
+            write_duration = time.time() - start_write_time
 
+            latest_open_time_ms = int(data[-1][0]) if data else 0
             latest_close = float(data[-1][4]) if data else 0
-            print(f"[5m] {symbol}: {len(data)}개 수집 | 최신가 ${latest_close:,.2f}")
+            current_time_ms = int(time.time() * 1000)
+            delay_ms = current_time_ms - latest_open_time_ms
+
+            print(f"[5m] {symbol}: {len(data)}개 수집 (DB 쓰기 {write_duration:.4f}s) | 최신봉 {latest_open_time_ms} | "
+                  f"현재가 ${latest_close:,.2f} | 지연 {delay_ms}ms")
 
         except Exception as e:
             print(f"[Klines] {symbol} 5분봉 수집 실패: {e}")
+    conn.commit()
+    conn.close()
+
+
+# === 주봉 수집 (MTF 장기 추세 분석용) ===
+def collect_klines_1w():
+    """주봉 52개 수집 (1년치, 장기 추세 분석용)"""
+    conn = get_connection()
+    for symbol in SYMBOLS:
+        try:
+            data = _get("/fapi/v1/klines", {
+                "symbol": symbol, "interval": "1w", "limit": 52,
+            })
+            for k in data:
+                conn.execute(
+                    """INSERT OR REPLACE INTO klines
+                    (symbol, interval, open_time, open, high, low, close, volume)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (symbol, "1w", int(k[0]), float(k[1]), float(k[2]),
+                     float(k[3]), float(k[4]), float(k[5])),
+                )
+            print(f"[1w] {symbol}: {len(data)}개 수집")
+        except Exception as e:
+            print(f"[Klines] {symbol} 주봉 수집 실패: {e}")
+    conn.commit()
+    conn.close()
+
+
+# === 4시간봉 수집 (MTF 중기 스윙 분석용) ===
+def collect_klines_4h():
+    """4시간봉 180개 수집 (30일치, 중기 스윙 분석용)"""
+    conn = get_connection()
+    for symbol in SYMBOLS:
+        try:
+            data = _get("/fapi/v1/klines", {
+                "symbol": symbol, "interval": "4h", "limit": 180,
+            })
+            for k in data:
+                conn.execute(
+                    """INSERT OR REPLACE INTO klines
+                    (symbol, interval, open_time, open, high, low, close, volume)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (symbol, "4h", int(k[0]), float(k[1]), float(k[2]),
+                     float(k[3]), float(k[4]), float(k[5])),
+                )
+            print(f"[4h] {symbol}: {len(data)}개 수집")
+        except Exception as e:
+            print(f"[Klines] {symbol} 4시간봉 수집 실패: {e}")
+    conn.commit()
+    conn.close()
+
+
+# === 1시간봉 수집 (MTF 단기 추세 분석용) ===
+def collect_klines_1h():
+    """1시간봉 168개 수집 (7일치, 단기 추세 분석용)"""
+    conn = get_connection()
+    for symbol in SYMBOLS:
+        try:
+            data = _get("/fapi/v1/klines", {
+                "symbol": symbol, "interval": "1h", "limit": 168,
+            })
+            for k in data:
+                conn.execute(
+                    """INSERT OR REPLACE INTO klines
+                    (symbol, interval, open_time, open, high, low, close, volume)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (symbol, "1h", int(k[0]), float(k[1]), float(k[2]),
+                     float(k[3]), float(k[4]), float(k[5])),
+                )
+            print(f"[1h] {symbol}: {len(data)}개 수집")
+        except Exception as e:
+            print(f"[Klines] {symbol} 1시간봉 수집 실패: {e}")
     conn.commit()
     conn.close()
 
@@ -217,3 +320,9 @@ if __name__ == "__main__":
     collect_klines()
     print("=== Klines 5분봉 ===")
     collect_klines_5m()
+    print("=== Klines 주봉 ===")
+    collect_klines_1w()
+    print("=== Klines 4시간봉 ===")
+    collect_klines_4h()
+    print("=== Klines 1시간봉 ===")
+    collect_klines_1h()

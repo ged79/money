@@ -25,24 +25,39 @@ SYMBOL_TO_TOKEN = SYMBOL_TO_BLOCKCHAIN
 MIN_USD_VALUE = 1_000_000
 
 
+_MAX_RETRIES = 3
+
+
 def _wa_get(endpoint: str, params: dict = None) -> dict | None:
-    """Whale Alert API 호출"""
+    """Whale Alert API 호출 (최대 3회 재시도, 429 시 60초 대기)"""
     url = f"{WHALE_ALERT_BASE}{endpoint}"
-    params = params or {}
-    params["api_key"] = WHALE_ALERT_API_KEY
-    try:
-        resp = requests.get(url, params=params, timeout=15)
-        resp.raise_for_status()
-        return resp.json()
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 429:
-            print("[WhaleAlert] 레이트 리밋 — 1분 후 재시도")
-        else:
-            print(f"[WhaleAlert] HTTP 에러: {e.response.status_code} - {e.response.text[:200]}")
-        return None
-    except Exception as e:
-        print(f"[WhaleAlert] 요청 실패: {e}")
-        return None
+    for attempt in range(1, _MAX_RETRIES + 1):
+        try:
+            p = dict(params or {})
+            p["api_key"] = WHALE_ALERT_API_KEY
+            resp = requests.get(url, params=p, timeout=15)
+            resp.raise_for_status()
+            return resp.json()
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else 0
+            if status == 429 and attempt < _MAX_RETRIES:
+                print(f"[WhaleAlert] 레이트 리밋 — 60초 대기 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(60)
+            elif attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[WhaleAlert] HTTP {status} — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                print(f"[WhaleAlert] HTTP {status} — 최대 재시도 초과: {e}")
+                return None
+        except Exception as e:
+            if attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[WhaleAlert] 요청 실패 — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                print(f"[WhaleAlert] 요청 실패 — 최대 재시도 초과: {e}")
+                return None
 
 
 def collect_whale_transactions():

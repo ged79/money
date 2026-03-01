@@ -52,14 +52,25 @@ def _calc_single(symbol: str) -> dict | None:
 
     current_oi = oi_row[0]
 
-    # 3. 현재가 (최신 kline 종가)
+    # 3. 현재가 (5분봉 우선, 일봉 폴백)
     price_row = conn.execute(
-        "SELECT close FROM klines WHERE symbol = ? AND interval = '1d' "
+        "SELECT close FROM klines WHERE symbol = ? AND interval = '5m' "
         "ORDER BY open_time DESC LIMIT 1",
         (symbol,),
     ).fetchone()
+    if not price_row:
+        price_row = conn.execute(
+            "SELECT close FROM klines WHERE symbol = ? AND interval = '1d' "
+            "ORDER BY open_time DESC LIMIT 1",
+            (symbol,),
+        ).fetchone()
 
-    current_price = price_row[0] if price_row else 0
+    if not price_row or price_row[0] <= 0:
+        print(f"[Threshold] {symbol}: 가격 데이터 없음 - 스킵")
+        conn.close()
+        return None
+
+    current_price = price_row[0]
 
     # 4. 유동성 계수 = 당일 거래량 / 30일 평균 거래량
     vol_rows = conn.execute(
@@ -70,7 +81,9 @@ def _calc_single(symbol: str) -> dict | None:
 
     if vol_rows:
         current_volume = vol_rows[0][0]
-        avg_volume = sum(r[0] for r in vol_rows) / len(vol_rows)
+        # 최신 1개(불완전 당일 캔들) 제외하고 평균 계산
+        completed = vol_rows[1:] if len(vol_rows) > 1 else vol_rows
+        avg_volume = sum(r[0] for r in completed) / len(completed)
         liquidity_coeff = current_volume / avg_volume if avg_volume > 0 else 1.0
         # 극단값 방지
         liquidity_coeff = max(0.1, min(10.0, liquidity_coeff))

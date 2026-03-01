@@ -1,0 +1,979 @@
+[DB] 테이블 초기화 완료
+============================================================
+  Auto Trading System - Phase 1+2
+  데이터 수집 + 분석 엔진
+  감시 대상: BTC, ETH, SOL
+============================================================
+
+[Phase 1] 초기 수집 시작
+[OI] BTCUSDT: 77,277.80
+[OI] ETHUSDT: 1,794,905.41
+[OI] SOLUSDT: 9,920,524.82
+[펀딩비] BTCUSDT: -0.000043 (-0.0043%)
+[펀딩비] ETHUSDT: -0.000072 (-0.0072%)
+[펀딩비] SOLUSDT: -0.000223 (-0.0223%)
+[롱숏] BTCUSDT: 롱 66.3% / 숏 33.7%
+[롱숏] ETHUSDT: 롱 70.2% / 숏 29.8%
+[롱숏] SOLUSDT: 롱 75.3% / 숏 24.7%
+[오더북] BTCUSDT: 매수벽 100개 / 매도벽 100개
+[오더북] ETHUSDT: 매수벽 100개 / 매도벽 100개
+[오더북] SOLUSDT: 매수벽 100개 / 매도벽 100개
+[ATR] BTCUSDT: ATR(14d) = $2,844.54 (4.24%) → 스톱로스 6.36%
+[ATR] ETHUSDT: ATR(14d) = $116.04 (5.90%) → 스톱로스 8.85%
+[ATR] SOLUSDT: ATR(14d) = $5.61 (6.64%) → 스톱로스 9.95%
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0031s) | 최신봉 1772319900000 | 현재가 $67,100.10 | 지연 92350ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0722s) | 최신봉 1772319900000 | 현재가 $1,966.30 | 지연 92737ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0393s) | 최신봉 1772319900000 | 현재가 $84.60 | 지연 93203ms
+[F&G] 11 — Extreme Fear
+[WhaleAlert] API 키 미설정 — 스킵 (추후 .env에 WHALE_ALERT_API_KEY 설정)
+[Santiment] BTC 넷플로우: +3,039.85 BTC (유입(매도압)) | 0건 신규 (30일 딜레이)
+[Santiment] MVRV: 1.5485 (중립) [30일 딜레이]
+[Santiment] NPL: -217,389,958 USD (손실 매도 중) [30일 딜레이]
+[Taker] BTCUSDT: ratio=1.2184 (매수 우세)
+[Taker] ETHUSDT: ratio=1.1415 (매수 우세)
+[Taker] SOLUSDT: ratio=0.8199 (매도 우세)
+[매크로] 임박한 이벤트 없음
+[Phase 1] 초기 수집 완료
+
+[Phase 2] 엔진 초기 실행
+[ATR Engine] BTCUSDT: ATR(14d) = $2,844.54 (4.24%) -> 스톱로스 6.36%
+[ATR Engine] ETHUSDT: ATR(14d) = $116.04 (5.90%) -> 스톱로스 8.85%
+[ATR Engine] SOLUSDT: ATR(14d) = $5.61 (6.64%) -> 스톱로스 9.95%
+[Threshold] BTCUSDT: threshold=0.001439 | 1h_liq=$5,370,055 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000255 | 1h_liq=$695,176 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000173 | 1h_liq=$106,824 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Grid] BTCUSDT: 간격 확보 위해 그리드 수 축소 → 3개 (0.0841%)
+[Grid] BTCUSDT: $67,016 - $67,185 | 3 grids @ $56 (0.08%) | spoofing=0 | vol_boost=200/discount=0
+[Grid] ETHUSDT: 간격 확보 위해 그리드 수 축소 → 9개 (0.0836%)
+[Grid] ETHUSDT: $1,958 - $1,972 | 9 grids @ $2 (0.08%) | spoofing=0 | vol_boost=200/discount=0
+[Grid] SOLUSDT: $82 - $86 | 10 grids @ $0 (0.52%) | spoofing=15 | vol_boost=109/discount=76
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Paper L4] SOLUSDT: SELL @ $84.60 | grid#1 PnL=+0.0989%
+[Phase 2] 엔진 초기 실행 완료
+
+[Phase 3] 라이브 트레이딩 활성화
+[Executor] 시간 보정: -764ms
+[Executor] MAINNET 초기화 완료 (https://fapi.binance.com)
+[Executor] MAINNET USDT 잔고: $0.00
+[Live] 포지션 보유 중 — 총 잔고 $59.29 (가용 $0.00)
+[스케줄러] 가동 중
+  --- Phase 1 수집 ---
+  OI: 1h | 펀딩비: 8h | 롱숏: 1h
+  오더북: 4h | 일봉: 24h | 5분봉: 300s | F&G: 6h
+  --- Phase 2 엔진 ---
+  Threshold: 300s | Scorer: 600s | Strategy: 60s
+  Grid: 4h | MacroGuard: 300s | ATR: 24h
+  Paper Trader: 60s
+  Live Trader V2: 30s (MAINNET, SOLUSDT)
+  DB Purge: 24h
+
+[WebSocket] 청산 스트림 시작...
+종료: Ctrl+C
+
+[WS] 청산 스트림 연결 성공: wss://fstream.binance.com/ws/!forceOrder@arr
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,917.30 | 수량 0.012 | 08:09:32
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 숏 청산 | 가격 $1,976.00 | 수량 1.033 | 08:09:45
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Live V2] CIRCUIT BREAKER! realized=+0.00% + unrealized=-7.14% = -7.14% <= 한도 -3.0%
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] BTCUSDT: threshold=0.001439 | 1h_liq=$5,370,858 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000256 | 1h_liq=$697,217 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000173 | 1h_liq=$106,824 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0025s) | 최신봉 1772320200000 | 현재가 $67,150.40 | 지연 104198ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772320200000 | 현재가 $1,967.71 | 지연 104663ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0375s) | 최신봉 1772320200000 | 현재가 $84.49 | 지연 105095ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,761.50 | 수량 0.081 | 08:13:54
+[청산] ETHUSDT 롱 청산 | 가격 $1,956.41 | 수량 1.675 | 08:13:59
+[청산] BTCUSDT 롱 청산 | 가격 $66,745.20 | 수량 0.016 | 08:13:59
+[청산] ETHUSDT 롱 청산 | 가격 $1,956.05 | 수량 0.172 | 08:14:02
+[청산] BTCUSDT 롱 청산 | 가격 $66,727.40 | 수량 0.107 | 08:14:02
+[청산] ETHUSDT 롱 청산 | 가격 $1,956.00 | 수량 3.164 | 08:14:04
+[청산] BTCUSDT 롱 청산 | 가격 $66,706.90 | 수량 0.002 | 08:14:12
+[청산] BTCUSDT 롱 청산 | 가격 $66,694.60 | 수량 0.313 | 08:14:13
+[청산] ETHUSDT 롱 청산 | 가격 $1,955.09 | 수량 0.427 | 08:14:15
+[청산] BTCUSDT 롱 청산 | 가격 $66,669.70 | 수량 0.002 | 08:14:19
+[청산] ETHUSDT 롱 청산 | 가격 $1,954.82 | 수량 0.218 | 08:14:19
+[청산] BTCUSDT 롱 청산 | 가격 $66,638.70 | 수량 0.457 | 08:14:20
+[청산] ETHUSDT 롱 청산 | 가격 $1,953.88 | 수량 0.506 | 08:14:20
+[청산] SOLUSDT 롱 청산 | 가격 $83.78 | 수량 0.08 | 08:14:36
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.001455 | 1h_liq=$5,435,330 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[Threshold] ETHUSDT: threshold=0.000260 | 1h_liq=$708,776 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Threshold] SOLUSDT: threshold=0.000173 | 1h_liq=$106,830 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[Macro Guard] 제한 없음
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0699s) | 최신봉 1772320500000 | 현재가 $66,963.10 | 지연 104286ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0040s) | 최신봉 1772320500000 | 현재가 $1,964.64 | 지연 104666ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0388s) | 최신봉 1772320500000 | 현재가 $84.40 | 지연 105172ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,635.40 | 수량 0.012 | 08:18:15
+[청산] BTCUSDT 롱 청산 | 가격 $66,617.50 | 수량 0.057 | 08:18:25
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] BTCUSDT: threshold=0.001460 | 1h_liq=$5,438,651 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000209 | 1h_liq=$568,325 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000173 | 1h_liq=$106,830 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772320800000 | 현재가 $67,008.20 | 지연 104227ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0399s) | 최신봉 1772320800000 | 현재가 $1,963.24 | 지연 104739ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0022s) | 최신봉 1772320800000 | 현재가 $84.32 | 지연 105209ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 롱 청산 | 가격 $1,952.78 | 수량 0.152 | 08:25:57
+[청산] ETHUSDT 롱 청산 | 가격 $1,952.56 | 수량 1.085 | 08:26:19
+[청산] BTCUSDT 롱 청산 | 가격 $66,605.70 | 수량 0.002 | 08:26:25
+[청산] ETHUSDT 롱 청산 | 가격 $1,952.08 | 수량 0.497 | 08:26:25
+[청산] BTCUSDT 롱 청산 | 가격 $66,596.50 | 수량 0.01 | 08:26:27
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.001456 | 1h_liq=$5,425,720 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[Threshold] ETHUSDT: threshold=0.000207 | 1h_liq=$562,892 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Threshold] SOLUSDT: threshold=0.000171 | 1h_liq=$105,699 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[Macro Guard] 제한 없음
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[Macro Guard] 제한 없음
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772321100000 | 현재가 $66,873.00 | 지연 104331ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0385s) | 최신봉 1772321100000 | 현재가 $1,960.05 | 지연 104758ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772321100000 | 현재가 $84.17 | 지연 105245ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] SOLUSDT 숏 청산 | 가격 $84.55 | 수량 1.21 | 08:30:16
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.001459 | 1h_liq=$5,425,720 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] ETHUSDT: threshold=0.000207 | 1h_liq=$562,892 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000172 | 1h_liq=$105,802 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772321400000 | 현재가 $66,926.50 | 지연 104197ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772321400000 | 현재가 $1,960.90 | 지연 104695ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0050s) | 최신봉 1772321400000 | 현재가 $84.16 | 지연 105162ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 롱 청산 | 가격 $1,951.29 | 수량 22.622 | 08:34:17
+[청산] ETHUSDT 롱 청산 | 가격 $1,950.70 | 수량 0.016 | 08:34:24
+[청산] ETHUSDT 롱 청산 | 가격 $1,950.43 | 수량 0.533 | 08:34:25
+[청산] SOLUSDT 롱 청산 | 가격 $83.70 | 수량 0.77 | 08:34:26
+[청산] BTCUSDT 롱 청산 | 가격 $66,605.20 | 수량 0.002 | 08:34:26
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] SOLUSDT 롱 청산 | 가격 $83.68 | 수량 7.56 | 08:35:01
+[청산] ETHUSDT 롱 청산 | 가격 $1,950.11 | 수량 0.19 | 08:35:05
+[청산] BTCUSDT 롱 청산 | 가격 $66,594.10 | 수량 0.015 | 08:35:05
+[청산] SOLUSDT 롱 청산 | 가격 $83.67 | 수량 1.37 | 08:35:05
+[청산] BTCUSDT 롱 청산 | 가격 $66,584.60 | 수량 0.156 | 08:35:07
+[청산] BTCUSDT 롱 청산 | 가격 $66,572.40 | 수량 0.019 | 08:35:08
+[청산] ETHUSDT 롱 청산 | 가격 $1,949.84 | 수량 0.02 | 08:35:08
+[청산] ETHUSDT 롱 청산 | 가격 $1,949.58 | 수량 0.65 | 08:35:13
+[청산] BTCUSDT 롱 청산 | 가격 $66,558.60 | 수량 0.008 | 08:35:14
+[청산] BTCUSDT 롱 청산 | 가격 $66,554.40 | 수량 0.028 | 08:35:16
+[청산] ETHUSDT 롱 청산 | 가격 $1,951.08 | 수량 1.921 | 08:35:36
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.000888 | 1h_liq=$3,306,080 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000084 | 1h_liq=$229,080 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000123 | 1h_liq=$75,978 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[Macro Guard] 제한 없음
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[Macro Guard] 제한 없음
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772321700000 | 현재가 $66,918.90 | 지연 104219ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0381s) | 최신봉 1772321700000 | 현재가 $1,961.77 | 지연 104773ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0201s) | 최신봉 1772321700000 | 현재가 $84.23 | 지연 105288ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,546.90 | 수량 0.022 | 08:38:19
+[청산] SOLUSDT 롱 청산 | 가격 $83.63 | 수량 3.06 | 08:38:21
+[청산] BTCUSDT 롱 청산 | 가격 $66,537.70 | 수량 0.011 | 08:38:25
+[청산] BTCUSDT 롱 청산 | 가격 $66,534.30 | 수량 4.441 | 08:38:26
+[청산] BTCUSDT 롱 청산 | 가격 $66,529.80 | 수량 0.221 | 08:38:27
+[청산] BTCUSDT 롱 청산 | 가격 $66,526.60 | 수량 0.129 | 08:38:28
+[청산] BTCUSDT 롱 청산 | 가격 $66,522.60 | 수량 0.257 | 08:38:31
+[청산] ETHUSDT 롱 청산 | 가격 $1,950.55 | 수량 8.029 | 08:38:31
+[청산] BTCUSDT 롱 청산 | 가격 $66,521.90 | 수량 0.014 | 08:38:32
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,520.90 | 수량 0.211 | 08:38:44
+[청산] SOLUSDT 롱 청산 | 가격 $83.59 | 수량 0.36 | 08:38:45
+[청산] SOLUSDT 롱 청산 | 가격 $83.56 | 수량 7.0 | 08:39:00
+[청산] SOLUSDT 롱 청산 | 가격 $83.56 | 수량 98.89 | 08:39:05
+[청산] ETHUSDT 롱 청산 | 가격 $1,949.29 | 수량 0.067 | 08:39:09
+[청산] BTCUSDT 롱 청산 | 가격 $66,502.90 | 수량 0.002 | 08:39:12
+[청산] ETHUSDT 롱 청산 | 가격 $1,949.07 | 수량 0.09 | 08:39:13
+[청산] SOLUSDT 롱 청산 | 가격 $83.53 | 수량 12.28 | 08:39:14
+[청산] BTCUSDT 롱 청산 | 가격 $66,483.10 | 수량 0.191 | 08:39:15
+[청산] ETHUSDT 롱 청산 | 가격 $1,948.57 | 수량 0.126 | 08:39:16
+[청산] ETHUSDT 롱 청산 | 가격 $1,948.44 | 수량 0.015 | 08:39:17
+[청산] SOLUSDT 롱 청산 | 가격 $83.50 | 수량 0.15 | 08:39:19
+[청산] BTCUSDT 롱 청산 | 가격 $66,468.80 | 수량 0.002 | 08:39:19
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] BTCUSDT: threshold=0.000142 | 1h_liq=$528,743 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000036 | 1h_liq=$97,879 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000043 | 1h_liq=$26,348 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0393s) | 최신봉 1772322000000 | 현재가 $66,780.00 | 지연 104251ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0412s) | 최신봉 1772322000000 | 현재가 $1,956.94 | 지연 104724ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0409s) | 최신봉 1772322000000 | 현재가 $83.96 | 지연 105193ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 숏 청산 | 가격 $1,969.57 | 수량 0.339 | 08:45:11
+[청산] ETHUSDT 숏 청산 | 가격 $1,970.03 | 수량 0.1 | 08:45:14
+[청산] ETHUSDT 숏 청산 | 가격 $1,970.95 | 수량 0.05 | 08:45:26
+[청산] ETHUSDT 숏 청산 | 가격 $1,971.32 | 수량 0.023 | 08:45:28
+[청산] SOLUSDT 숏 청산 | 가격 $84.73 | 수량 15.9 | 08:45:32
+[청산] ETHUSDT 숏 청산 | 가격 $1,971.90 | 수량 0.05 | 08:45:33
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 숏 청산 | 가격 $67,245.70 | 수량 0.1 | 08:46:06
+[청산] SOLUSDT 숏 청산 | 가격 $84.74 | 수량 29.73 | 08:46:06
+[청산] ETHUSDT 숏 청산 | 가격 $1,972.29 | 수량 76.318 | 08:46:06
+[청산] SOLUSDT 숏 청산 | 가격 $84.76 | 수량 2.97 | 08:46:22
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] BTCUSDT: threshold=0.000142 | 1h_liq=$527,684 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000092 | 1h_liq=$249,507 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Threshold] SOLUSDT: threshold=0.000044 | 1h_liq=$27,328 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[Macro Guard] 제한 없음
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0383s) | 최신봉 1772322300000 | 현재가 $66,985.30 | 지연 104335ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772322300000 | 현재가 $1,964.21 | 지연 104852ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0395s) | 최신봉 1772322300000 | 현재가 $84.34 | 지연 105469ms
+[청산] SOLUSDT 롱 청산 | 가격 $83.93 | 수량 0.1 | 08:47:17
+[청산] ETHUSDT 숏 청산 | 가격 $1,972.98 | 수량 0.179 | 08:47:21
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] SOLUSDT 숏 청산 | 가격 $84.79 | 수량 2.5 | 08:49:17
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 숏 청산 | 가격 $1,973.26 | 수량 2.701 | 08:49:51
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.000133 | 1h_liq=$496,458 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] ETHUSDT: threshold=0.000090 | 1h_liq=$245,062 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000035 | 1h_liq=$21,728 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0379s) | 최신봉 1772322600000 | 현재가 $66,940.70 | 지연 104226ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0026s) | 최신봉 1772322600000 | 현재가 $1,963.12 | 지연 104588ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0412s) | 최신봉 1772322600000 | 현재가 $84.31 | 지연 104980ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.000123 | 1h_liq=$459,704 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] ETHUSDT: threshold=0.000089 | 1h_liq=$241,776 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Threshold] SOLUSDT: threshold=0.000033 | 1h_liq=$20,628 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.5 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[Macro Guard] 제한 없음
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.5 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=3.00 -> BULLISH
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772322900000 | 현재가 $66,931.80 | 지연 104171ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0316s) | 최신봉 1772322900000 | 현재가 $1,962.25 | 지연 104585ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772322900000 | 현재가 $84.25 | 지연 104924ms
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,715.30 | 수량 0.002 | 08:58:37
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] SOLUSDT 숏 청산 | 가격 $84.69 | 수량 0.24 | 08:59:09
+[청산] BTCUSDT 숏 청산 | 가격 $67,193.60 | 수량 0.088 | 08:59:11
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] ETHUSDT 숏 청산 | 가격 $1,973.78 | 수량 0.063 | 09:00:15
+[청산] SOLUSDT 숏 청산 | 가격 $84.91 | 수량 93.37 | 09:00:25
+[청산] SOLUSDT 숏 청산 | 가격 $84.93 | 수량 3.96 | 09:00:27
+[청산] ETHUSDT 숏 청산 | 가격 $1,974.61 | 수량 58.384 | 09:00:29
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[청산] BTCUSDT 롱 청산 | 가격 $66,695.90 | 수량 0.002 | 09:00:44
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.000125 | 1h_liq=$465,616 | OI=77,278 | coeff=1.39 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] ETHUSDT: threshold=0.000131 | 1h_liq=$357,079 | OI=1,794,905 | coeff=1.30 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.000038 | 1h_liq=$23,716 | OI=9,920,525 | coeff=1.36 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772323200000 | 현재가 $66,948.40 | 지연 104176ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0020s) | 최신봉 1772323200000 | 현재가 $1,964.48 | 지연 104697ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0376s) | 최신봉 1772323200000 | 현재가 $84.49 | 지연 105159ms

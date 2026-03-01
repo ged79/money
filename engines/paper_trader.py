@@ -10,7 +10,7 @@ import json
 from datetime import date, datetime
 
 from db import get_connection
-from config import SYMBOLS, L1_FUNDING_THRESHOLD
+from config import SYMBOLS, L1_FUNDING_THRESHOLD, L4_FEE_RATE, L2_FEE_RATE
 
 
 def run_paper_trader(symbol: str = None):
@@ -226,10 +226,11 @@ def _process_l2_signals(symbol: str):
                 direction = open_trade[1]
                 entry_pct = open_trade[3]
 
+                fee_cost = L2_FEE_RATE * 2 * 100  # 왕복 수수료 %
                 if direction == "LONG":
-                    pnl_pct = (exit_price - entry_price) / entry_price * 100
+                    pnl_pct = (exit_price - entry_price) / entry_price * 100 - fee_cost
                 else:
-                    pnl_pct = (entry_price - exit_price) / entry_price * 100
+                    pnl_pct = (entry_price - exit_price) / entry_price * 100 - fee_cost
 
                 pnl_weighted = pnl_pct * entry_pct
 
@@ -342,28 +343,34 @@ def _process_l4_grid(symbol: str):
             last_level = last_grid[0] if last_grid else -1
 
             if last_level != i:
-                # 그리드 레벨 변경 = 매매 발생
                 if last_level >= 0:
                     if i > last_level:
-                        # 가격 상승 → 매도 (그리드 이익, 1/grid_count 가중)
-                        grid_pnl = (grid_high - grid_low) / grid_low * 100 / count
-                        side = "SELL"
+                        # 가격 상승 → 각 레벨별 SELL 기록
+                        for step in range(last_level, i):
+                            g_low = levels[step]
+                            g_high = levels[step + 1]
+                            # /count = 포트폴리오 레벨 PnL (각 그리드는 1/count 자본 사용)
+                            grid_pnl = ((g_high - g_low) / g_low * 100 - L4_FEE_RATE * 2 * 100) / count
+                            conn.execute(
+                                "INSERT INTO paper_l4_grid "
+                                "(symbol, grid_level, grid_price, side, pnl_pct, grid_config_id) "
+                                "VALUES (?, ?, ?, 'SELL', ?, ?)",
+                                (symbol, step + 1, current_price, round(grid_pnl, 4), grid_id),
+                            )
+                            if grid_pnl > 0:
+                                print(f"[Paper L4] {symbol}: SELL @ ${current_price:,.2f} "
+                                      f"| grid#{step+1} PnL={grid_pnl:+.4f}%")
+                        conn.commit()
                     else:
-                        # 가격 하락 → 매수 (나중 매도 대기)
-                        grid_pnl = 0  # 매수는 아직 이익 아님
-                        side = "BUY"
-
-                    conn.execute(
-                        "INSERT INTO paper_l4_grid "
-                        "(symbol, grid_level, grid_price, side, pnl_pct, grid_config_id) "
-                        "VALUES (?, ?, ?, ?, ?, ?)",
-                        (symbol, i, current_price, side, round(grid_pnl, 4), grid_id),
-                    )
-                    conn.commit()
-
-                    if grid_pnl > 0:
-                        print(f"[Paper L4] {symbol}: {side} @ ${current_price:,.2f} "
-                              f"| grid#{i} PnL={grid_pnl:+.2f}%")
+                        # 가격 하락 → 각 레벨별 BUY 기록
+                        for step in range(last_level, i, -1):
+                            conn.execute(
+                                "INSERT INTO paper_l4_grid "
+                                "(symbol, grid_level, grid_price, side, pnl_pct, grid_config_id) "
+                                "VALUES (?, ?, ?, 'BUY', 0, ?)",
+                                (symbol, step - 1, current_price, grid_id),
+                            )
+                        conn.commit()
                 else:
                     # 초기 레벨 기록
                     conn.execute(

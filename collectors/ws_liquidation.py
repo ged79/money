@@ -10,9 +10,35 @@ from config import BINANCE_WS_BASE, SYMBOLS, WS_RECONNECT_ATTEMPTS, WS_RECONNECT
 # BTC만 필터링 (검증 기간)
 _WATCH_SYMBOLS = set(SYMBOLS)
 
+# 배치 쓰기 버퍼 (청산 폭주 시 DB contention 방지)
+_buffer = []
+_FLUSH_INTERVAL = 2.0   # 최대 2초마다 flush
+_FLUSH_SIZE = 20         # 20건 이상이면 즉시 flush
+_last_flush = 0.0
+
+
+def _flush_buffer():
+    """버퍼의 청산 데이터를 DB에 일괄 저장"""
+    global _buffer, _last_flush
+    if not _buffer:
+        return
+    try:
+        conn = get_connection()
+        conn.executemany(
+            "INSERT INTO liquidations (symbol, side, price, qty, trade_time) VALUES (?, ?, ?, ?, ?)",
+            _buffer,
+        )
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"[WS] DB flush 실패: {e}")
+    _buffer = []
+    _last_flush = time.time()
+
 
 async def _handle_message(msg: str):
-    """forceOrder 이벤트 파싱 → DB 저장"""
+    """forceOrder 이벤트 파싱 → 버퍼에 추가"""
+    global _buffer
     data = json.loads(msg)
     order = data.get("o", {})
     symbol = order.get("s", "")
@@ -25,22 +51,31 @@ async def _handle_message(msg: str):
     qty = float(order.get("q", 0))
     trade_time = int(order.get("T", 0))
 
-    conn = get_connection()
-    conn.execute(
-        "INSERT INTO liquidations (symbol, side, price, qty, trade_time) VALUES (?, ?, ?, ?, ?)",
-        (symbol, side, price, qty, trade_time),
-    )
-    conn.commit()
-    conn.close()
+    _buffer.append((symbol, side, price, qty, trade_time))
+
+    # 즉시 flush 조건: 버퍼 크기 초과 또는 시간 초과
+    if len(_buffer) >= _FLUSH_SIZE or (time.time() - _last_flush) >= _FLUSH_INTERVAL:
+        _flush_buffer()
 
     direction = "숏 청산" if side == "BUY" else "롱 청산"
     print(f"[청산] {symbol} {direction} | 가격 ${price:,.2f} | 수량 {qty} | {time.strftime('%H:%M:%S')}")
+
+
+async def _periodic_flush():
+    """주기적 flush (메시지가 없어도 버퍼 비우기)"""
+    while True:
+        await asyncio.sleep(_FLUSH_INTERVAL)
+        if _buffer and (time.time() - _last_flush) >= _FLUSH_INTERVAL:
+            _flush_buffer()
 
 
 async def run_liquidation_stream():
     """WebSocket 청산 스트림 실행 (자동 재연결 포함)"""
     url = f"{BINANCE_WS_BASE}/!forceOrder@arr"
     attempt = 0
+
+    # 주기적 flush 태스크 시작
+    asyncio.create_task(_periodic_flush())
 
     while True:
         try:
@@ -52,6 +87,7 @@ async def run_liquidation_stream():
                     await _handle_message(msg)
 
         except (websockets.ConnectionClosed, ConnectionError, OSError) as e:
+            _flush_buffer()  # 연결 끊기기 전 버퍼 flush
             attempt += 1
             if attempt > WS_RECONNECT_ATTEMPTS:
                 print(f"[WS] 재연결 {WS_RECONNECT_ATTEMPTS}회 실패 — 스트림 중단")
@@ -65,6 +101,7 @@ async def run_liquidation_stream():
             await asyncio.sleep(WS_RECONNECT_DELAY)
 
         except Exception as e:
+            _flush_buffer()
             print(f"[WS] 예상치 못한 오류: {e}")
             await asyncio.sleep(WS_RECONNECT_DELAY)
 

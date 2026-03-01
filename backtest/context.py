@@ -199,6 +199,17 @@ class BacktestContext:
         )
 
         # ============================
+        # 8-1. check_data_freshness stub — 백테스트에서는 항상 fresh
+        # ============================
+        self._stack.enter_context(
+            patch('db.check_data_freshness', self._stub_freshness)
+        )
+        self._stack.enter_context(
+            patch('engines.strategy_manager.check_data_freshness',
+                  self._stub_freshness)
+        )
+
+        # ============================
         # 8. 매크로 이벤트 stub — 빈 캘린더
         # ============================
         self._stack.enter_context(
@@ -265,6 +276,16 @@ class BacktestContext:
             "net_flow_usd": 0,
             "tx_count": 0,
             "score": 0.0,
+        }
+
+    def _stub_freshness(self, symbol: str = "", max_age_seconds: int = 600) -> dict:
+        """백테스트에서는 모든 데이터가 fresh — stale 경고 방지"""
+        return {
+            "klines_5m": {"age_seconds": 0, "stale": False},
+            "oi": {"age_seconds": 0, "stale": False},
+            "funding": {"age_seconds": 0, "stale": False},
+            "threshold": {"age_seconds": 0, "stale": False},
+            "ssm_score": {"age_seconds": 0, "stale": False},
         }
 
     def _stub_mvrv(self) -> dict:

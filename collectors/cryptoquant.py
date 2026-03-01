@@ -6,6 +6,7 @@ Binance: Taker Buy/Sell Ratio (REST, 무제한, 실시간)
 """
 import time
 import requests
+
 from datetime import date, timedelta
 from db import get_connection
 from config import BINANCE_FUTURES_BASE, SYMBOLS
@@ -32,9 +33,12 @@ ASSET_TO_SLUG = {
 }
 
 
+_MAX_RETRIES = 3
+
+
 def _santiment_query(metric: str, slug: str = "bitcoin",
                      from_date: str = None, to_date: str = None) -> list | None:
-    """Santiment GraphQL API 호출"""
+    """Santiment GraphQL API 호출 (최대 3회 재시도)"""
     if not from_date:
         end = date.today() - timedelta(days=SANTIMENT_DELAY_DAYS - SANTIMENT_RANGE_DAYS)
         start = end - timedelta(days=SANTIMENT_RANGE_DAYS)
@@ -57,23 +61,41 @@ def _santiment_query(metric: str, slug: str = "bitcoin",
     }
     """ % (metric, slug, from_date, to_date)
 
-    try:
-        resp = requests.post(SANTIMENT_URL,
-                             json={"query": query},
-                             headers={"Content-Type": "application/json"},
-                             timeout=15)
-        resp.raise_for_status()
-        data = resp.json()
+    for attempt in range(1, _MAX_RETRIES + 1):
+        try:
+            resp = requests.post(SANTIMENT_URL,
+                                 json={"query": query},
+                                 headers={"Content-Type": "application/json"},
+                                 timeout=15)
+            resp.raise_for_status()
+            data = resp.json()
 
-        if "errors" in data:
-            print(f"[Santiment] GraphQL 에러: {data['errors'][0].get('message', '')[:100]}")
-            return None
+            if "errors" in data:
+                print(f"[Santiment] GraphQL 에러: {data['errors'][0].get('message', '')[:100]}")
+                return None
 
-        series = data.get("data", {}).get("getMetric", {}).get("timeseriesData", [])
-        return series
-    except Exception as e:
-        print(f"[Santiment] 요청 실패: {e}")
-        return None
+            series = data.get("data", {}).get("getMetric", {}).get("timeseriesData", [])
+            return series
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else 0
+            if status == 429 and attempt < _MAX_RETRIES:
+                print(f"[Santiment] 레이트 리밋 — 60초 대기 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(60)
+            elif attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[Santiment] HTTP {status} — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                print(f"[Santiment] 요청 실패 — 최대 재시도 초과: {e}")
+                return None
+        except Exception as e:
+            if attempt < _MAX_RETRIES:
+                delay = 2 ** attempt
+                print(f"[Santiment] 요청 실패 — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                time.sleep(delay)
+            else:
+                print(f"[Santiment] 요청 실패 — 최대 재시도 초과: {e}")
+                return None
 
 
 # ============================
@@ -206,41 +228,62 @@ def collect_taker_ratio():
     conn = get_connection()
 
     for symbol in SYMBOLS:
-        try:
-            resp = requests.get(
-                f"{BINANCE_FUTURES_BASE}/futures/data/takerlongshortRatio",
-                params={"symbol": symbol, "period": "1h", "limit": 12},
-                timeout=10,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-
-            for entry in data:
-                ts = int(entry["timestamp"])
-                ratio = float(entry["buySellRatio"])
-                buy_vol = float(entry["buyVol"])
-                sell_vol = float(entry["sellVol"])
-
-                exists = conn.execute(
-                    "SELECT 1 FROM taker_ratio WHERE symbol = ? AND timestamp = ?",
-                    (symbol, ts),
-                ).fetchone()
-                if exists:
-                    continue
-
-                conn.execute(
-                    "INSERT INTO taker_ratio (symbol, buy_sell_ratio, buy_vol, sell_vol, timestamp) "
-                    "VALUES (?, ?, ?, ?, ?)",
-                    (symbol, ratio, buy_vol, sell_vol, ts),
+        data = None
+        for attempt in range(1, _MAX_RETRIES + 1):
+            try:
+                resp = requests.get(
+                    f"{BINANCE_FUTURES_BASE}/futures/data/takerlongshortRatio",
+                    params={"symbol": symbol, "period": "1h", "limit": 12},
+                    timeout=10,
                 )
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except requests.exceptions.HTTPError as e:
+                status = e.response.status_code if e.response is not None else 0
+                if status == 429 and attempt < _MAX_RETRIES:
+                    print(f"[Taker] {symbol} 레이트 리밋 — 60초 대기 (시도 {attempt}/{_MAX_RETRIES})")
+                    time.sleep(60)
+                elif attempt < _MAX_RETRIES:
+                    delay = 2 ** attempt
+                    print(f"[Taker] {symbol} HTTP {status} — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                    time.sleep(delay)
+                else:
+                    print(f"[Taker] {symbol} 수집 실패 — 최대 재시도 초과: {e}")
+            except Exception as e:
+                if attempt < _MAX_RETRIES:
+                    delay = 2 ** attempt
+                    print(f"[Taker] {symbol} 요청 실패 — {delay}초 후 재시도 (시도 {attempt}/{_MAX_RETRIES})")
+                    time.sleep(delay)
+                else:
+                    print(f"[Taker] {symbol} 수집 실패 — 최대 재시도 초과: {e}")
 
-            latest = data[-1] if data else {}
-            r = float(latest.get("buySellRatio", 0))
-            pressure = "매수 우세" if r > 1.0 else "매도 우세" if r < 1.0 else "균형"
-            print(f"[Taker] {symbol}: ratio={r:.4f} ({pressure})")
+        if not data:
+            continue
 
-        except Exception as e:
-            print(f"[Taker] {symbol} 수집 실패: {e}")
+        for entry in data:
+            ts = int(entry["timestamp"])
+            ratio = float(entry["buySellRatio"])
+            buy_vol = float(entry["buyVol"])
+            sell_vol = float(entry["sellVol"])
+
+            exists = conn.execute(
+                "SELECT 1 FROM taker_ratio WHERE symbol = ? AND timestamp = ?",
+                (symbol, ts),
+            ).fetchone()
+            if exists:
+                continue
+
+            conn.execute(
+                "INSERT INTO taker_ratio (symbol, buy_sell_ratio, buy_vol, sell_vol, timestamp) "
+                "VALUES (?, ?, ?, ?, ?)",
+                (symbol, ratio, buy_vol, sell_vol, ts),
+            )
+
+        latest = data[-1] if data else {}
+        r = float(latest.get("buySellRatio", 0))
+        pressure = "매수 우세" if r > 1.0 else "매도 우세" if r < 1.0 else "균형"
+        print(f"[Taker] {symbol}: ratio={r:.4f} ({pressure})")
 
     conn.commit()
     conn.close()
@@ -278,6 +321,13 @@ def get_netflow_signal(asset: str = "btc") -> dict:
 
     latest = rows[0][0]
     avg_7d = sum(r[0] for r in rows) / len(rows)
+
+    # carry forward: 최신값이 0이면 직전 비영 값 사용 (자정 리셋 방지)
+    if latest == 0:
+        for r in rows[1:]:
+            if r[0] != 0:
+                latest = r[0]
+                break
 
     if latest > 0:
         direction = "inflow"

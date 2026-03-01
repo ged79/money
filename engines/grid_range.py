@@ -1,10 +1,87 @@
-"""Engine 3: 그리드 범위 계산기 - 오더북 벽 기반 + 스푸핑 방어"""
+"""Engine 3: 그리드 범위 계산기 - 오더북 벽 + 거래량 프로파일 + 스푸핑 방어"""
 from db import get_connection
-from config import SYMBOLS, GRID_COUNT_MIN, GRID_COUNT_MAX
+from config import SYMBOLS, GRID_COUNT_MIN, GRID_COUNT_MAX, MIN_GRID_SPACING_PCT
 from engines.atr import get_latest_atr
 
 # 스푸핑 방어: 가격 허용 오차 (±0.1%)
 SPOOFING_PRICE_TOLERANCE = 0.001
+
+# 볼륨 프로파일: 벽 가중치 조정용
+VOLUME_BOOST_TOLERANCE = 0.005   # 벽 가격 ±0.5% 범위에서 거래량 탐색
+VOLUME_BOOST_MAX = 2.0           # 최대 부스트 배율
+VOLUME_DISCOUNT = 0.7            # 거래량 미동반 벽 감소 배율
+
+
+def _get_volume_profile(conn, symbol: str) -> dict[float, float]:
+    """5분봉에서 가격별 거래량 프로파일 생성 (최근 288봉 = 24시간)
+
+    각 캔들의 대표가격 (high+low+close)/3 에 거래량을 배분,
+    가격의 0.1% 단위로 비닝하여 가격대별 총 거래량 반환.
+    """
+    rows = conn.execute(
+        "SELECT high, low, close, volume FROM klines "
+        "WHERE symbol = ? AND interval = '5m' "
+        "ORDER BY open_time DESC LIMIT 288",
+        (symbol,),
+    ).fetchall()
+
+    if not rows:
+        return {}
+
+    volume_at_price: dict[float, float] = {}
+    for high, low, close, volume in rows:
+        typical = (high + low + close) / 3
+        # 가격의 0.1% 단위로 비닝
+        bin_size = typical * 0.001
+        if bin_size <= 0:
+            continue
+        price_bin = round(round(typical / bin_size) * bin_size, 2)
+        volume_at_price[price_bin] = volume_at_price.get(price_bin, 0) + volume
+
+    return volume_at_price
+
+
+def _apply_volume_boost(walls: list[tuple], volume_profile: dict) -> tuple[list[tuple], int, int]:
+    """오더북 벽에 거래량 부스트/감소 적용
+
+    - 해당 가격대에 거래량 밀집 → 가중치 부스트 (진짜 매물대)
+    - 거래량 미미 → 가중치 감소 (스푸핑 가능)
+
+    Returns: (boosted_walls, boosted_count, discounted_count)
+    """
+    if not volume_profile:
+        return walls, 0, 0
+
+    avg_vol = sum(volume_profile.values()) / len(volume_profile)
+    if avg_vol <= 0:
+        return walls, 0, 0
+
+    boosted = []
+    boosted_count = 0
+    discounted_count = 0
+
+    for price, qty in walls:
+        # 해당 가격 ±0.5% 범위 거래량 합산
+        nearby_vol = sum(
+            vol for p, vol in volume_profile.items()
+            if abs(p - price) / price < VOLUME_BOOST_TOLERANCE
+        )
+
+        if nearby_vol >= avg_vol * 1.5:
+            # 거래량 1.5배 이상 → 강한 매물대 → 부스트
+            factor = min(VOLUME_BOOST_MAX, 1.0 + (nearby_vol / avg_vol - 1) * 0.5)
+            boosted_count += 1
+        elif nearby_vol >= avg_vol * 0.5:
+            # 보통 거래량 → 변경 없음
+            factor = 1.0
+        else:
+            # 거래량 거의 없음 → 약한 매물대 → 감소
+            factor = VOLUME_DISCOUNT
+            discounted_count += 1
+
+        boosted.append((price, qty * factor))
+
+    return boosted, boosted_count, discounted_count
 
 
 def calculate_grid_range(symbol: str = None) -> dict | None:
@@ -82,6 +159,13 @@ def _calc_single(symbol: str) -> dict | None:
         conn.close()
         return result
 
+    # 4-1. 볼륨 프로파일 기반 벽 가중치 조정
+    volume_profile = _get_volume_profile(conn, symbol)
+    bid_walls, bid_boosted, bid_discounted = _apply_volume_boost(bid_walls, volume_profile)
+    ask_walls, ask_boosted, ask_discounted = _apply_volume_boost(ask_walls, volume_profile)
+    vol_boosted = bid_boosted + ask_boosted
+    vol_discounted = bid_discounted + ask_discounted
+
     # 5. 수량 가중 대표 가격 계산
     # BID: 상위 벽들의 가중 평균 → 하한 (지지선)
     bid_walls.sort(key=lambda x: x[1], reverse=True)  # 수량 큰 순
@@ -116,6 +200,22 @@ def _calc_single(symbol: str) -> dict | None:
     mid_price = (lower_bound + upper_bound) / 2
     grid_spacing_pct = (grid_spacing / mid_price) * 100
 
+    # 최소 간격 체크: 수수료보다 좁으면 그리드 수 축소 또는 스킵
+    if grid_spacing_pct < MIN_GRID_SPACING_PCT:
+        # 최소 간격 확보 가능한 그리드 수 계산
+        min_spacing_abs = mid_price * MIN_GRID_SPACING_PCT / 100
+        new_count = int(grid_range / min_spacing_abs)
+        if new_count >= 2:
+            grid_count = new_count
+            grid_spacing = grid_range / grid_count
+            grid_spacing_pct = (grid_spacing / mid_price) * 100
+            print(f"[Grid] {symbol}: 간격 확보 위해 그리드 수 축소 → {grid_count}개 ({grid_spacing_pct:.4f}%)")
+        else:
+            # 범위가 너무 좁아 2칸도 불가 → 그리드 스킵
+            print(f"[Grid] {symbol}: 범위 너무 좁음 (총 {grid_range/mid_price*100:.4f}% < 최소 {MIN_GRID_SPACING_PCT*2:.4f}%) - 그리드 비활성화")
+            conn.close()
+            return None
+
     # DB 저장
     conn.execute(
         "INSERT INTO grid_configs "
@@ -139,8 +239,9 @@ def _calc_single(symbol: str) -> dict | None:
     }
 
     spoof_str = f"spoofing={spoofing_filtered}" if spoofing_filtered >= 0 else "spoofing=N/A(1scan)"
+    vol_str = f"vol_boost={vol_boosted}/discount={vol_discounted}" if volume_profile else "vol=N/A"
     print(f"[Grid] {symbol}: ${lower_bound:,.0f} - ${upper_bound:,.0f} | "
-          f"{grid_count} grids @ ${grid_spacing:,.0f} ({grid_spacing_pct:.2f}%) | {spoof_str}")
+          f"{grid_count} grids @ ${grid_spacing:,.0f} ({grid_spacing_pct:.2f}%) | {spoof_str} | {vol_str}")
 
     return result
 
@@ -159,6 +260,15 @@ def _fallback_grid(symbol: str, conn) -> dict | None:
     grid_count = 12
     grid_spacing = (upper_bound - lower_bound) / grid_count
     grid_spacing_pct = (grid_spacing / price) * 100
+
+    # 최소 간격 검증: 수수료 이하면 그리드 수 축소
+    while grid_spacing_pct < MIN_GRID_SPACING_PCT and grid_count > GRID_COUNT_MIN:
+        grid_count -= 1
+        grid_spacing = (upper_bound - lower_bound) / grid_count
+        grid_spacing_pct = (grid_spacing / price) * 100
+    if grid_spacing_pct < MIN_GRID_SPACING_PCT:
+        print(f"[Grid] {symbol}: ATR 폴백 간격 {grid_spacing_pct:.4f}% < 최소 {MIN_GRID_SPACING_PCT}% — 생성 불가")
+        return None
 
     conn.execute(
         "INSERT INTO grid_configs "

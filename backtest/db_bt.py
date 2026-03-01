@@ -274,6 +274,7 @@ def init_backtest_db() -> Path:
             l4_grid_config_id INTEGER,
             macro_blocked INTEGER NOT NULL DEFAULT 0,
             macro_block_reason TEXT,
+            l2_trailing_stop_price REAL,
             pending_signal TEXT,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )

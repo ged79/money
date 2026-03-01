@@ -1,0 +1,492 @@
+[DB] 테이블 초기화 완료
+============================================================
+  Auto Trading System - Phase 1+2
+  데이터 수집 + 분석 엔진
+  감시 대상: BTC, ETH, SOL
+============================================================
+
+[Phase 1] 초기 수집 시작
+[OI] BTCUSDT: 79,235.21
+[OI] ETHUSDT: 1,810,788.02
+[OI] SOLUSDT: 10,370,541.38
+[펀딩비] BTCUSDT: -0.000037 (-0.0037%)
+[펀딩비] ETHUSDT: -0.000095 (-0.0095%)
+[펀딩비] SOLUSDT: -0.000201 (-0.0201%)
+[롱숏] BTCUSDT: 롱 69.5% / 숏 30.5%
+[롱숏] ETHUSDT: 롱 71.9% / 숏 28.1%
+[롱숏] SOLUSDT: 롱 75.6% / 숏 24.4%
+[오더북] BTCUSDT: 매수벽 100개 / 매도벽 100개
+[오더북] ETHUSDT: 매수벽 100개 / 매도벽 100개
+[오더북] SOLUSDT: 매수벽 100개 / 매도벽 100개
+[ATR] BTCUSDT: ATR(14d) = $2,720.23 (4.19%) → 스톱로스 6.29%
+[ATR] ETHUSDT: ATR(14d) = $112.69 (5.94%) → 스톱로스 8.92%
+[ATR] SOLUSDT: ATR(14d) = $5.37 (6.67%) → 스톱로스 10.00%
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0076s) | 최신봉 1772287500000 | 현재가 $64,903.90 | 지연 195536ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0767s) | 최신봉 1772287500000 | 현재가 $1,896.70 | 지연 195920ms
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0386s) | 최신봉 1772287500000 | 현재가 $80.56 | 지연 196365ms
+[F&G] 11 — Extreme Fear
+[WhaleAlert] API 키 미설정 — 스킵 (추후 .env에 WHALE_ALERT_API_KEY 설정)
+[Santiment] BTC 넷플로우: -1,022.56 BTC (유출(축적)) | 0건 신규 (30일 딜레이)
+[Santiment] MVRV: 1.5485 (중립) [30일 딜레이]
+[Santiment] NPL: -54,194,230 USD (손실 매도 중) [30일 딜레이]
+[Taker] BTCUSDT: ratio=1.4513 (매수 우세)
+[Taker] ETHUSDT: ratio=1.2653 (매수 우세)
+[Taker] SOLUSDT: ratio=1.3156 (매수 우세)
+[매크로] 임박한 이벤트 없음
+[Phase 1] 초기 수집 완료
+
+[Phase 2] 엔진 초기 실행
+[ATR Engine] BTCUSDT: ATR(14d) = $2,720.23 (4.19%) -> 스톱로스 6.29%
+[ATR Engine] ETHUSDT: ATR(14d) = $112.69 (5.94%) -> 스톱로스 8.92%
+[ATR Engine] SOLUSDT: ATR(14d) = $5.37 (6.67%) -> 스톱로스 10.00%
+[Threshold] BTCUSDT: threshold=0.000352 | 1h_liq=$2,157,101 | OI=79,235 | coeff=0.84 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000251 | 1h_liq=$1,116,222 | OI=1,810,788 | coeff=0.77 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.001578 | 1h_liq=$1,634,193 | OI=10,370,541 | coeff=0.81 | trigger=OFF
+[Macro Guard] 제한 없음
+[Grid] BTCUSDT: 간격 확보 위해 그리드 수 축소 → 3개 (0.0865%)
+[Grid] BTCUSDT: $64,841 - $65,010 | 3 grids @ $56 (0.09%) | spoofing=93 | vol_boost=107/discount=0
+[Grid] ETHUSDT: 간격 확보 위해 그리드 수 축소 → 9개 (0.0857%)
+[Grid] ETHUSDT: $1,889 - $1,903 | 9 grids @ $2 (0.09%) | spoofing=40 | vol_boost=160/discount=0
+[Grid] SOLUSDT: $79 - $82 | 10 grids @ $0 (0.33%) | spoofing=2 | vol_boost=171/discount=27
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.0 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Phase 2] 엔진 초기 실행 완료
+
+[Phase 3] 라이브 트레이딩 활성화
+[Executor] MAINNET 초기화 완료 (https://fapi.binance.com)
+[Executor] MAINNET USDT 잔고: $59.14
+[Live] Futures 잔고 확인: $59.14 — 트레이딩 시작!
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] 마진타입 설정 실패: 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/marginType?symbol=SOLUSDT&marginType=CROSSED&timestamp=1772287706843&signature=de555fc99264b1e2b7d311f9564865755daea74201dc67ebdd3d7c8652bd6c62
+[Executor] MAINNET SOLUSDT 레버리지 → 2x
+[Live V2][SOLUSDT] 그리드 고정 id=313 $78.89~$81.49 (11레벨, 간격=$0.26)
+[Executor] MAINNET SOLUSDT: 모든 주문 취소 완료
+[Live V2] SOLUSDT: 그리드 전환 완료 — 11개 레벨
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Grid][SOLUSDT] bias: BEARISH | 5m(228): 81.34->80.56 | 1d: 81.80->80.55
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[스케줄러] 가동 중
+  --- Phase 1 수집 ---
+  OI: 1h | 펀딩비: 8h | 롱숏: 1h
+  오더북: 4h | 일봉: 24h | 5분봉: 300s | F&G: 6h
+  --- Phase 2 엔진 ---
+  Threshold: 300s | Scorer: 600s | Strategy: 60s
+  Grid: 4h | MacroGuard: 300s | ATR: 24h
+  Paper Trader: 60s
+  Live Trader V2: 30s (MAINNET, SOLUSDT)
+  DB Purge: 24h
+
+[WebSocket] 청산 스트림 시작...
+종료: Ctrl+C
+
+[WS] 청산 스트림 연결 성공: wss://fstream.binance.com/ws/!forceOrder@arr
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 숏 청산 | 가격 $1,906.40 | 수량 0.863 | 23:10:04
+[청산] ETHUSDT 숏 청산 | 가격 $1,907.31 | 수량 0.343 | 23:10:12
+[청산] BTCUSDT 숏 청산 | 가격 $65,231.70 | 수량 0.006 | 23:10:13
+[청산] ETHUSDT 숏 청산 | 가격 $1,907.54 | 수량 1.166 | 23:10:14
+[청산] ETHUSDT 숏 청산 | 가격 $1,908.17 | 수량 5.347 | 23:10:18
+[청산] ETHUSDT 숏 청산 | 가격 $1,908.65 | 수량 9.642 | 23:10:19
+[청산] BTCUSDT 숏 청산 | 가격 $65,275.06 | 수량 0.021 | 23:10:20
+[청산] ETHUSDT 숏 청산 | 가격 $1,909.46 | 수량 0.021 | 23:10:21
+[청산] BTCUSDT 숏 청산 | 가격 $65,282.10 | 수량 0.022 | 23:10:21
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 숏 청산 | 가격 $1,910.08 | 수량 16.066 | 23:11:25
+[청산] ETHUSDT 숏 청산 | 가격 $1,910.31 | 수량 0.033 | 23:11:26
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 숏 청산 | 가격 $1,910.89 | 수량 1.048 | 23:11:49
+[청산] ETHUSDT 숏 청산 | 가격 $1,911.55 | 수량 158.138 | 23:11:50
+[청산] ETHUSDT 숏 청산 | 가격 $1,912.97 | 수량 0.128 | 23:11:51
+[청산] ETHUSDT 숏 청산 | 가격 $1,913.74 | 수량 0.04 | 23:11:54
+[청산] ETHUSDT 숏 청산 | 가격 $1,914.05 | 수량 0.047 | 23:11:55
+[청산] BTCUSDT 숏 청산 | 가격 $65,287.20 | 수량 0.013 | 23:11:55
+[청산] BTCUSDT 숏 청산 | 가격 $65,310.00 | 수량 0.009 | 23:11:57
+[청산] ETHUSDT 숏 청산 | 가격 $1,914.26 | 수량 5.804 | 23:11:57
+[청산] SOLUSDT 숏 청산 | 가격 $81.23 | 수량 11.86 | 23:11:58
+[청산] BTCUSDT 숏 청산 | 가격 $65,321.60 | 수량 0.002 | 23:11:58
+[청산] ETHUSDT 숏 청산 | 가격 $1,914.39 | 수량 1.233 | 23:11:58
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 롱 청산 | 가격 $1,891.88 | 수량 0.086 | 23:13:15
+[청산] BTCUSDT 롱 청산 | 가격 $64,587.10 | 수량 1.844 | 23:13:18
+[청산] BTCUSDT 롱 청산 | 가격 $64,561.40 | 수량 0.068 | 23:13:24
+[청산] BTCUSDT 롱 청산 | 가격 $64,557.80 | 수량 0.018 | 23:13:25
+[Macro Guard] 제한 없음
+[Threshold] BTCUSDT: threshold=0.000373 | 1h_liq=$2,286,517 | OI=79,235 | coeff=0.84 | trigger=OFF
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] ETHUSDT: threshold=0.000333 | 1h_liq=$1,481,390 | OI=1,810,788 | coeff=0.77 | trigger=OFF
+[Threshold] SOLUSDT: threshold=0.001579 | 1h_liq=$1,635,156 | OI=10,370,541 | coeff=0.81 | trigger=OFF
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0435s) | 최신봉 1772287800000 | 현재가 $64,817.00 | 지연 211669ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0025s) | 최신봉 1772287800000 | 현재가 $1,898.13 | 지연 212250ms
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Grid][SOLUSDT] bias: BEARISH | 5m(228): 81.34->80.56 | 1d: 81.80->80.55
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0040s) | 최신봉 1772287800000 | 현재가 $80.42 | 지연 212839ms
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 롱 청산 | 가격 $1,889.87 | 수량 3.231 | 23:13:36
+[청산] ETHUSDT 롱 청산 | 가격 $1,889.54 | 수량 103.551 | 23:13:38
+[청산] SOLUSDT 롱 청산 | 가격 $79.99 | 수량 12.12 | 23:13:45
+[청산] SOLUSDT 롱 청산 | 가격 $79.96 | 수량 2.69 | 23:13:49
+[청산] SOLUSDT 롱 청산 | 가격 $79.94 | 수량 24.15 | 23:13:53
+[청산] BTCUSDT 롱 청산 | 가격 $64,513.90 | 수량 0.65 | 23:13:54
+[청산] SOLUSDT 롱 청산 | 가격 $79.93 | 수량 5.23 | 23:13:55
+[청산] BTCUSDT 롱 청산 | 가격 $64,509.40 | 수량 0.069 | 23:13:56
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] SOLUSDT 롱 청산 | 가격 $80.01 | 수량 0.01 | 23:14:51
+[청산] ETHUSDT 롱 청산 | 가격 $1,890.17 | 수량 0.001 | 23:14:51
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 롱 청산 | 가격 $1,888.32 | 수량 0.525 | 23:15:26
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 롱 청산 | 가격 $1,887.57 | 수량 17.301 | 23:15:38
+[청산] BTCUSDT 롱 청산 | 가격 $64,478.20 | 수량 0.002 | 23:15:38
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036057079&timestamp=1772288162479&signature=5b72c719018a7082c382bda724d785fb46055b03f9508820a03aeac1b4d59282 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036057079&timestamp=1772288164888&signature=e662bf1279d721099f4cfa62690547939b77c94f654fcf64aca47a7c174180bc | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036057079&timestamp=1772288167381&signature=05ca91105503e79a2e2cfd1be64569901e176efa572c7865291913b993819058 | 
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036060238&timestamp=1772288167839&signature=ff59ca6ea560a51e15c535ad8ed4c80c05b76d070a0f55ee23104e9da15f9abf | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036060238&timestamp=1772288170311&signature=832d897248c584a4008d814f1f8efcc539b5501856475d2fcca328842ba17f59 | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036060238&timestamp=1772288172832&signature=6bbbe1301942478d5285c98cf312029d8eaf56a82e828d9bf79fdeab1959c430 | 
+[청산] ETHUSDT 숏 청산 | 가격 $1,907.81 | 수량 0.128 | 23:16:22
+[청산] ETHUSDT 숏 청산 | 가격 $1,908.89 | 수량 5.0 | 23:16:23
+[청산] ETHUSDT 숏 청산 | 가격 $1,908.93 | 수량 22.036 | 23:16:24
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] BTCUSDT 숏 청산 | 가격 $65,128.80 | 수량 0.269 | 23:16:35
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] SOLUSDT 숏 청산 | 가격 $81.08 | 수량 2.65 | 23:17:16
+[청산] ETHUSDT 숏 청산 | 가격 $1,909.76 | 수량 0.002 | 23:17:28
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Threshold] BTCUSDT: threshold=0.000372 | 1h_liq=$2,256,323 | OI=79,253 | coeff=0.85 | trigger=OFF
+[Threshold] ETHUSDT: threshold=0.000408 | 1h_liq=$1,785,211 | OI=1,807,164 | coeff=0.78 | trigger=OFF
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Threshold] SOLUSDT: threshold=0.001581 | 1h_liq=$1,618,091 | OI=10,382,720 | coeff=0.82 | trigger=OFF
+[Macro Guard] 제한 없음
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] BTCUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[Macro Guard] 제한 없음
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] ETHUSDT: T=OFF | M=1.0 | Ss=1.0 | Ss_story=0.0 | V=0.0 | total=2.00 -> BULLISH
+[SSM] M.whale: 데이터 없음 -> 0.0pt
+[SSM] M.netflow: outflow (trend=increasing_outflow) -> 1.0pt
+[SSM] V.mvrv: 1.5485 (neutral) -> 0.0pt
+[SSM] SOLUSDT: T=OFF | M=1.0 | Ss=1.5 | Ss_story=0.0 | V=0.0 | total=2.50 -> BULLISH[Macro Guard] 제한 없음
+
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[5m] BTCUSDT: 300개 수집 (DB 쓰기 0.0383s) | 최신봉 1772288100000 | 현재가 $64,731.90 | 지연 211660ms
+[5m] ETHUSDT: 300개 수집 (DB 쓰기 0.0380s) | 최신봉 1772288100000 | 현재가 $1,898.19 | 지연 212221ms
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Grid][SOLUSDT] bias: BEARISH | 5m(228): 81.34->80.37 | 1d: 81.80->80.36
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[5m] SOLUSDT: 300개 수집 (DB 쓰기 0.0040s) | 최신봉 1772288100000 | 현재가 $80.43 | 지연 212757ms
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036386771&timestamp=1772288312898&signature=c06cf5776757b3464cc5c195a70414064acb0bbd9b75bd5f730e997ff4b3c051 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036386771&timestamp=1772288315358&signature=51d82818da4438f3e036d064a7cac91d091b16841e8c645b6c537af7feee4171 | 
+[청산] BTCUSDT 롱 청산 | 가격 $64,467.60 | 수량 0.021 | 23:18:37
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036386771&timestamp=1772288317841&signature=8bf6e276f31f0cc6d3b01e25974e094e72c3c3c844fa04cacf14562a68436fa7 | 
+[청산] BTCUSDT 롱 청산 | 가격 $64,460.40 | 수량 0.106 | 23:18:46
+[청산] BTCUSDT 롱 청산 | 가격 $64,455.40 | 수량 0.334 | 23:18:47
+[청산] BTCUSDT 롱 청산 | 가격 $64,441.50 | 수량 0.002 | 23:18:51
+[청산] ETHUSDT 롱 청산 | 가격 $1,889.64 | 수량 0.013 | 23:18:51
+[청산] BTCUSDT 롱 청산 | 가격 $64,435.10 | 수량 0.003 | 23:18:52
+[청산] BTCUSDT 롱 청산 | 가격 $64,422.90 | 수량 0.121 | 23:18:55
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] SOLUSDT 숏 청산 | 가격 $80.73 | 수량 0.12 | 23:19:09
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [5..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036677284&timestamp=1772288402782&signature=28ac6aa6963203a006bbcae685280ed39d2d669fef68d20cee241e2f5748d8a6 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036677284&timestamp=1772288405315&signature=02b7b92a2626d72acf7757b4b1449dbc3308f16d22939d2014a31170c4099fa2 | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036677284&timestamp=1772288407887&signature=143d7d4a790d130b5463b293f59ed9d9d9cc4f3ba2f79dde43b9e13a55d5e7f2 | 
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681453&timestamp=1772288408420&signature=a203d64e25bf305b02c577c10838a7d892a5c9411c45d18ea0a85f9780477fdf | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681453&timestamp=1772288410886&signature=a27acae1c4a6ce7604bd9a6d719d9ee402e894c74f278dbdfd25bb6dc97efbcf | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681453&timestamp=1772288413366&signature=3a078aef086d1adf5848331194404eb8c88bef6646900ef5ca46fb30242e7b3f | 
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681722&timestamp=1772288413921&signature=bd8790b6310b9b6cf78494a64b98bbe7e4ca371d70428a8de5084cd3f8967ff3 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681722&timestamp=1772288416441&signature=73e43e6c964a038c5863bd3b208818c9bb23fe0868ec020f7ff8f3c4bc1e25a0 | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681722&timestamp=1772288418908&signature=876f764e30edcf85045a70007767bf09857adada3c89eac8602b30263a3a0456 | 
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681909&timestamp=1772288419367&signature=72adc029d55053f12e69039f301ab9e4976f8216f4b6dc90604378ff5823dc1d | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681909&timestamp=1772288421870&signature=1d92ec4ee840e84f2dbe3a805fc034aec3b4321a61cce64e144227a41b85520e | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036681909&timestamp=1772288424382&signature=88706e199a4ed0678290053c2ba2506507b5c6d90fb1dd5b8be271e615f194b5 | 
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036683597&timestamp=1772288424862&signature=8e1c4306fd27a178bf2e44cdb703f28561723e85b7016d1aaefa5f77f883d4f7 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036683597&timestamp=1772288427395&signature=894b1da7eba728b922afa2ffd772616146a57b50b869cb170e4c0318cf3ab2d5 | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036683597&timestamp=1772288429945&signature=c4e5ebe6085cfb03dad357ae2ac049db2d73d4056e2ae91067204fc6424eeb2c | 
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [4..10] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[Executor] DELETE 실패 (시도 1/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036774903&timestamp=1772288462514&signature=0206364c14b52f33247551b141da8dcf8db59181d7ceba17b8fecbb9e045c8f2 | 
+[Executor] DELETE 실패 (시도 2/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036774903&timestamp=1772288464937&signature=155876fe3145451078c8745c7483acd941ab4a4a8728df1497f408ced51c5b6c | 
+[Executor] DELETE 실패 (시도 3/3): 400 Client Error: Bad Request for url: https://fapi.binance.com/fapi/v1/order?symbol=SOLUSDT&orderId=200036774903&timestamp=1772288467323&signature=9f8ea6f1c6f93177da7a4d65e3f7ed0273056b248344e0132bd123f97ec8452e | 
+[청산] BTCUSDT 롱 청산 | 가격 $64,402.50 | 수량 0.04 | 23:21:09
+[청산] BTCUSDT 롱 청산 | 가격 $64,400.30 | 수량 0.002 | 23:21:11
+[청산] SOLUSDT 롱 청산 | 가격 $79.89 | 수량 1.23 | 23:21:23
+[청산] SOLUSDT 롱 청산 | 가격 $79.87 | 수량 0.13 | 23:21:26
+[Strategy] BTCUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] BTCUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] ETHUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] ETHUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Strategy] SOLUSDT: 데이터 지연 경고 - klines_5m, oi, funding, threshold, ssm_score
+[Macro Guard] 제한 없음
+[Strategy] SOLUSDT: SSM 방향 불일치 (BULLISH vs SHORT) - L2 진입 보류
+[Strategy] SOLUSDT: State=A | L1=OFF | L2=OFF | L4=ON | macro=OK
+[Signal] 신호 없음 - 대기 중
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [3..9] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
+[청산] ETHUSDT 롱 청산 | 가격 $1,887.82 | 수량 3.877 | 23:21:34
+[Executor] MAINNET USDT 잔고: $59.14
+[Live V2][SOLUSDT] Working Window 관리 시작
+[Live V2][SOLUSDT] window [3..9] bias=BEARISH L=2 S=4
+[Executor] MAINNET USDT 잔고: $59.14
